@@ -31,11 +31,15 @@
 
 <body>
 <p> Celeberation for the Special Events</p>
+
 	<table class="customers" id ="mytb">
 				<tr>
-				  <th>Emmployee-ID</th>
-				  <th>Department-ID</th>
-				  <th>EmployeeName</th>
+				  <th>Id</th>
+				  <th>Department Id</th>
+				  <th>Organization Id</th>
+				  <th>Employee Name</th>
+				  <th>Event Name</th>
+				  <th>Event Date</th>
 				</tr>
 		
 	<script>
@@ -49,26 +53,31 @@
 		
 		for(var i = 0; i < results.length; i++) {
 			var obj = results[i];
-			console.log(obj);
 			console.log(obj.id);
 			console.log(obj.departmentId);
 			console.log(obj.employeeName);
 			console.log(obj.idorganizationId);
-			var organizationId = obj.organizationId;
-			var departmentId = obj.iddepartmentId;
-			var employeeName = obj.employeeName;
+			
 			let tableRef = document.getElementById("mytb");
 			let newRow = tableRef.insertRow(-1);
 			let newCell = newRow.insertCell(0);
 			let newCel2 = newRow.insertCell(1);
 			let newCel3 = newRow.insertCell(2);
-			let Cell1 = document.createTextNode(organizationId);
-			let Cell2 = document.createTextNode(departmentId);
-			let Cell3 = document.createTextNode(employeeName);		
+			let newCel4 = newRow.insertCell(3);
+			let newCel5 = newRow.insertCell(4);
+			let newCel6 = newRow.insertCell(5);
+			let Cell1 = document.createTextNode(obj.id);
+			let Cell2 = document.createTextNode(obj.departmentId);
+			let Cell3 = document.createTextNode(obj.organizationId);
+			let Cell4 = document.createTextNode(obj.employeeName);
+			let Cell5 = document.createTextNode(obj.eventName);
+			let Cell6 = document.createTextNode(obj.date);			
 			newCell.appendChild(Cell1);
 			newCel2.appendChild(Cell2);
-			newCel3.appendChild(Cell3);	
-			
+			newCel3.appendChild(Cell3);
+			newCel4.appendChild(Cell4);	
+			newCel5.appendChild(Cell5);		
+			newCel6.appendChild(Cell6);
 			console.log("Login Name:" +obj.login);
 			}});
     </script>
