@@ -42,20 +42,21 @@
 	
 		
     $.getJSON('http://employee-events-employee-events.192.168.99.105.nip.io/employee/', function(data) {
-<<<<<<< HEAD
-
-=======
->>>>>>> 98fa334904945c9a5cae6960787a225f420587da
         
         
 		var results = data;
-		console.log(results.length);
+		console.log(results);
 		
 		for(var i = 0; i < results.length; i++) {
 			var obj = results[i];
-			var organizationId = obj.login;
-			var departmentId = obj.id;
-			var employeeName = obj.type;
+			console.log(obj);
+			console.log(obj.id);
+			console.log(obj.departmentId);
+			console.log(obj.employeeName);
+			console.log(obj.idorganizationId);
+			var organizationId = obj.organizationId;
+			var departmentId = obj.iddepartmentId;
+			var employeeName = obj.employeeName;
 			let tableRef = document.getElementById("mytb");
 			let newRow = tableRef.insertRow(-1);
 			let newCell = newRow.insertCell(0);
