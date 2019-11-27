@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<style>
+				.customers {
+				  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+				  border-collapse: collapse;
+				  width: 100%;
+				}
+				
+				.customers td, #customers th {
+				  border: 1px solid #ddd;
+				  padding: 8px;
+				}
+				
+				.customers tr:nth-child(even){background-color: #f2f2f2;}
+				
+				.customers tr:hover {background-color: #ddd;}
+				
+				.customers th {
+				  padding-top: 12px;
+				  padding-bottom: 12px;
+				  text-align: left;
+				  background-color: #4CAF50;
+				  color: white;
+				}
+				</style>	
+<title>JavaScript - read JSON from URL</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+<p> Celeberation for the Special Events</p>
+	<table class="customers" id ="mytb">
+				<tr>
+				  <th>Emmployee-ID</th>
+				  <th>Department-ID</th>
+				  <th>EmployeeName</th>
+				</tr>
+		
+	<script>
+	
+		
+    $.getJSON('http://employee-events-employee-events.192.168.99.105.nip.io/employee/', function(data) {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 98fa334904945c9a5cae6960787a225f420587da
+        
+        
+		var results = data;
+		console.log(results.length);
+		
+		for(var i = 0; i < results.length; i++) {
+			var obj = results[i];
+			var organizationId = obj.login;
+			var departmentId = obj.id;
+			var employeeName = obj.type;
+			let tableRef = document.getElementById("mytb");
+			let newRow = tableRef.insertRow(-1);
+			let newCell = newRow.insertCell(0);
+			let newCel2 = newRow.insertCell(1);
+			let newCel3 = newRow.insertCell(2);
+			let Cell1 = document.createTextNode(organizationId);
+			let Cell2 = document.createTextNode(departmentId);
+			let Cell3 = document.createTextNode(employeeName);		
+			newCell.appendChild(Cell1);
+			newCel2.appendChild(Cell2);
+			newCel3.appendChild(Cell3);	
+			
+			console.log("Login Name:" +obj.login);
+			}});
+    </script>
+</body>
+</html>
