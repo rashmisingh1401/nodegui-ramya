@@ -60,10 +60,10 @@
 					<a href="/dashboard" class="btn btn-secondary">Back</a></br>
 			 </div>
 	</div>	
-	<script>
+<script>
+	const url_env = process.env.HTTP_TEST_SERVER;
 	
-	
-    $.getJSON('http://employee-events-employee-events.192.168.99.105.nip.io/employee/', function(data) {
+    $.getJSON(url_env, function(data) {
         
         
 		var results = data;
