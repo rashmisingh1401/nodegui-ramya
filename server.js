@@ -2,16 +2,30 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
-    
+
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
+
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
+
 app.use(morgan('combined'))
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+const url_env = process.env.HTTP_TEST_SERVER;
+
+ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-    mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
+   
+     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
+
+console.log(process.env.PORT );
+console.log(process.env.OPENSHIFT_NODEJS_PORT);
+console.log(process.env.IP);
+console.log(process.env.OPENSHIFT_NODEJS_IP );
+
 
 if (mongoURL == null) {
   var mongoHost, mongoPort, mongoDatabase, mongoPassword, mongoUser;
@@ -73,14 +87,82 @@ var initDb = function(callback) {
   });
 };
 
+//dashboard Page
 app.get('/', function (req, res) {
-  res.setHeader("Access-Control-Allow-Credentials", "*");
-  res.render('sample3.html');
+  res.render("welcome.html")
 });
 
-app.get('/pagecount', function (req, res) {
- res.send("Hello World");
+//Display Events
+app.get('/events', function (req, res) {
+  res.setHeader("Access-Control-Allow-Credentials", "*");
+  res.render('events.html');
 });
+
+//adding New Events
+app.get('/addNewEvents', function (req, res) {
+  res.setHeader("Access-Control-Allow-Credentials", "*");
+  res.render('addNewEvents.html');
+});
+
+//Login Page
+app.get('/login', function (req, res) {
+  res.setHeader("Access-Control-Allow-Credentials", "*");
+  res.render('login.html');
+ 
+});
+
+
+//Login Validation
+app.post('/login', function (req, res) {
+  const userName = req.body.userName;
+  const password = req.body.password
+  
+  if (userName == "RamyaThiru" && password == "ramya") {
+    res.render("dashboard.html");
+  }
+  else{
+    console.log("validation Error");
+    res.render('login.html')
+  }
+});
+
+//Adding new Events
+app.post('/addNewEvents', function (req, res) {
+  const reqobj = {
+    id : req.body.id,
+    organizationId : req.body.organizationId,
+    departmentId : req.body.departmentId,
+    employeeName : req.body.employeeName,
+    eventName : req.body.eventName,
+    date : req.body.date
+  }
+  console.log("Response which is send" +reqobj);
+  const fetch = require("node-fetch");
+  return fetch(url_env, {
+    method: 'POST',
+    body: JSON.stringify({
+      id : req.body.id,
+      organizationId : req.body.organizationId,
+      departmentId : req.body.departmentId,
+      employeeName : req.body.employeeName,
+      eventName : req.body.eventName,
+      date : req.body.date
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': '*'
+    }
+}).then(() => res.render("dashboard.html"))
+.catch(err => console.log(err));
+});
+
+//cancel
+app.get('/dashboard', function (req, res) {
+  
+  res.render('dashboard.html');
+ 
+});
+
 
 // error handling
 app.use(function(err, req, res, next){
@@ -92,7 +174,7 @@ initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
 
-app.listen(port, ip);
+app.listen(port,ip);
 console.log('Server running on http://%s:%s', ip, port);
 
 module.exports = app ;

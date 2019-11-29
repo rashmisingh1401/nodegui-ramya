@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/journal/bootstrap.min.css"
+    />
+    <title>Event Planner</title>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"
+  ></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<style>
+.wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+</style>
+</head>
+
+<body>
+  <h1 class="text-center mb-3">REMEMBER</h1>
+  <h1 class="text-center mb-3">
+	</i> Something New is coming soon
+  </h1>
+	<table class="table table-hover" id ="mytb">
+				<tr class="table-primary">
+				  <th>SalaryID</th>
+				  <th>Department ID</th>
+				  <th>Organization ID</th>
+				  <th>Employee Name</th>
+				  <th>Event Name</th>
+				  <th>Event Date</th>
+				</tr>
+	</table>
+	<div class="row mt-5">
+			<div style=" padding-left: 300px;" class="col-md-6 m-auto">
+					<a href="/dashboard" class="btn btn-secondary">Back</a></br>
+			 </div>
+	</div>	
+	<script>
+	
+	
+    $.getJSON('http://employee-events-employee-events.192.168.99.105.nip.io/employee/', function(data) {
+        
+        
+		var results = data;
+		console.log(results);
+		
+		for(var i = 0; i < results.length; i++) {
+			var obj = results[i];
+			console.log(obj.id);
+			console.log(obj.departmentId);
+			console.log(obj.employeeName);
+			console.log(obj.idorganizationId);
+			
+			let tableRef = document.getElementById("mytb");
+			let newRow = tableRef.insertRow(-1);
+			let newCell = newRow.insertCell(0);
+			let newCel2 = newRow.insertCell(1);
+			let newCel3 = newRow.insertCell(2);
+			let newCel4 = newRow.insertCell(3);
+			let newCel5 = newRow.insertCell(4);
+			let newCel6 = newRow.insertCell(5);
+			let Cell1 = document.createTextNode(obj.id);
+			let Cell2 = document.createTextNode(obj.departmentId);
+			let Cell3 = document.createTextNode(obj.organizationId);
+			let Cell4 = document.createTextNode(obj.employeeName);
+			let Cell5 = document.createTextNode(obj.eventName);
+			let Cell6 = document.createTextNode(obj.date);			
+			newCell.appendChild(Cell1);
+			newCel2.appendChild(Cell2);
+			newCel3.appendChild(Cell3);
+			newCel4.appendChild(Cell4);	
+			newCel5.appendChild(Cell5);		
+			newCel6.appendChild(Cell6);
+			console.log("Login Name:" +obj.login);
+			}});
+    </script>
+</body>
+</html>
